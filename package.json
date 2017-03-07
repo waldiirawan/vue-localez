@@ -1,32 +1,27 @@
 {
-  "name": "vue-localez",
-  "version": "0.0.1",
-  "description": "Localization support for VueJS",
-  "main": "dist/vueLocalez.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/waldiirawan/vue-localez.git"
-  },
-  "keywords": [
-    "vue",
-    "locale",
-    "localization",
-    "language",
-    "lang"
-  ],
-  "author": "Waldi Irawan",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/waldiirawan/vue-localez/issues"
-  },
-  "homepage": "https://github.com/waldiirawan/vue-localez#readme",
-  "devDependencies": {
-    "vue": "^2.2.1",
-    "vue-loader": "^11.1.4",
-    "vue-template-compiler": "^2.2.1",
-    "webpack": "^2.2.1"
-  }
+    "name": "vue-localez",
+    "version": "0.0.1",
+    "description": "Localization support for VueJS",
+    "main": "src/vueLocalez.js",
+    "scripts": {
+        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/waldiirawan/vue-localez.git"
+    },
+    "keywords": [
+        "vue",
+        "locale",
+        "localization",
+        "language",
+        "lang"
+    ],
+    "author": "Waldi Irawan",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/waldiirawan/vue-localez/issues"
+    },
+    "homepage": "https://github.com/waldiirawan/vue-localez#readme"
 }

@@ -1,1 +1,10 @@
 node_modules
+webpack.mix.js
+public
+mix-manifest.json
+yarn.lock
+src/components
+src/lang
+src/vue.js
+public
+dist
