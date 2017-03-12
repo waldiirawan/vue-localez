@@ -69,8 +69,8 @@ vueLocalez.prototype.for = function(isoCode) {
  */
 vueLocalez.prototype.saveTovueLocalezSources = function() {
     for(var prop in vueLocalez.sources) {
-        if(prop.indexOf(`./${this.activevueLocalez}/`) === 0){
-            var langCode = prop.replace(`./${this.activevueLocalez}/`, '').replace(`.${this.extensionvueLocalez}`, '')
+        if(prop.indexOf('./' + this.activevueLocalez + '/') === 0){
+            var langCode = prop.replace('./' + this.activevueLocalez + '/', '').replace('.' + this.extensionvueLocalez + '', '')
             this.langSources[langCode] = vueLocalez.sources[prop]
         }
     }
@@ -97,7 +97,7 @@ vueLocalez.prototype.message = function(prop, attributes) {
     }
     var value = this.fetchFromObject(this.langSources, prop)
     for(var propAttr in attributes) {
-        value = value.replace(`{${propAttr}}`, attributes[propAttr])
+        value = value.replace('{' + propAttr + '}', attributes[propAttr])
     }
     return value
 }
