@@ -1,6 +1,6 @@
 {
     "name": "vue-localez",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "Localization support for VueJS",
     "main": "src/vueLocalez.js",
     "scripts": {

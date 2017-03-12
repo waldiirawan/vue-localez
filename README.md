@@ -1,6 +1,9 @@
 # vue-localez
 Vue-localez is an addon to add support for multiple languages.
 
+## Features
+* Has support for [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+
 ## Installation
 
 Installing Vue Localization is a pretty simple process

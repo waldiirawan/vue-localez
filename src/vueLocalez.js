@@ -25,6 +25,11 @@ var vueLocalez = function(options) {
     */
     this.langSources = {}
     /**
+     * For Formatting number
+     * @type {Object}
+     */
+    this.fNumbOpt = options.formatNumber || {}
+    /**
      *  Sets the current lang
      */
     this.for(this.activevueLocalez)
@@ -118,6 +123,17 @@ vueLocalez.prototype.fetchFromObject = function(obj, prop) {
         return this.fetchFromObject(obj[prop.substring(0, _index)], prop.substr(_index + 1));
     }
     return obj[prop];
+}
+
+/**
+ * The vueLocalez.prototype.formatNumber is a constructor for Intl.NumberFormat objects that enable language sensitive number formatting.
+ * @method formatNumber
+ * @param  {number}     number
+ * @param  {object}     options
+ * @return {string}
+ */
+vueLocalez.prototype.formatNumber = function(number, options) {
+    return new Intl.NumberFormat(this.activevueLocalez, options || this.fNumbOpt).format(number)
 }
 
 /**
