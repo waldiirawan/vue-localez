@@ -3,22 +3,22 @@
 * @method vueLocalez
 * @param  {object} options
 */
-var vueLocalez = function(options) {
+const vueLocalez = function (options) {
     /**
      * This object options for localez
      * @type {object}
      */
-    var options = options || {}
+    const opts = options || {}
     /**
     * This value if using different language
     * @type {string}
     */
-    this.activevueLocalez = options.lang || 'en'
+    this.activevueLocalez = opts.lang || 'en'
     /**
     * This value if using different extension
     * @type {string}
     */
-    this.extensionvueLocalez = options.extension || 'json'
+    this.extensionvueLocalez = opts.extension || 'json'
     /**
     * For lang sources
     * @type {Object}
@@ -28,7 +28,7 @@ var vueLocalez = function(options) {
      * For Formatting number
      * @type {Object}
      */
-    this.fNumbOpt = options.formatNumber || {}
+    this.fNumbOpt = opts.formatNumber || {}
     /**
      *  Sets the current lang
      */
@@ -46,8 +46,8 @@ vueLocalez.sources = {}
  * @method requireAll
  * @param  {function} rC
  */
-vueLocalez.requireAll = function(rC) {
-    rC.keys().forEach(function(file){
+vueLocalez.requireAll = function (rC) {
+    rC.keys().forEach((file) => {
         vueLocalez.sources[file] = rC(file)
     })
 }
@@ -57,7 +57,7 @@ vueLocalez.requireAll = function(rC) {
  * @method for
  * @param  {string} isoCode
  */
-vueLocalez.prototype.for = function(isoCode) {
+vueLocalez.prototype.for = function (isoCode) {
     this.activevueLocalez = isoCode
     this.langSources = {}
     this.saveTovueLocalezSources()
@@ -67,20 +67,20 @@ vueLocalez.prototype.for = function(isoCode) {
  * Saving all json to obj
  * @method saveTovueLocalezSources
  */
-vueLocalez.prototype.saveTovueLocalezSources = function() {
-    for(var prop in vueLocalez.sources) {
-        if(prop.indexOf('./' + this.activevueLocalez + '/') === 0){
-            var langCode = prop.replace('./' + this.activevueLocalez + '/', '').replace('.' + this.extensionvueLocalez + '', '')
+vueLocalez.prototype.saveTovueLocalezSources = function () {
+    Object.keys(vueLocalez.sources).forEach(prop => {
+        if (prop.indexOf('./' + this.activevueLocalez + '/') === 0) {
+            const langCode = prop.replace('./' + this.activevueLocalez + '/', '').replace('.' + this.extensionvueLocalez + '', '')
             this.langSources[langCode] = vueLocalez.sources[prop]
         }
-    }
+    })
 }
 
 /**
  * Get active language
  * @method getvueLocalez
  */
-vueLocalez.prototype.getvueLocalez = function() {
+vueLocalez.prototype.getvueLocalez = function () {
     return this.activevueLocalez
 }
 
@@ -90,13 +90,14 @@ vueLocalez.prototype.getvueLocalez = function() {
  * @param  {object} prop
  * @param  {object} attributes
  */
-vueLocalez.prototype.message = function(prop, attributes) {
-    var attr = attributes || {}
-    if(typeof attr === 'undefined') {
-        return false;
+vueLocalez.prototype.message = function (prop, attributes) {
+    const attr = attributes || {}
+    if (typeof attr === 'undefined') {
+        return false
     }
-    var value = this.fetchFromObject(this.langSources, prop)
-    for(var propAttr in attributes) {
+    let value = this.fetchFromObject(this.langSources, prop)
+
+    for (const propAttr of Object.keys(attr)) {
         value = value.replace('{' + propAttr + '}', attributes[propAttr])
     }
     return value
@@ -108,21 +109,21 @@ vueLocalez.prototype.message = function(prop, attributes) {
  * @param  {object}  obj
  * @param  {object} prop
  */
-vueLocalez.prototype.fetchFromObject = function(obj, prop) {
+vueLocalez.prototype.fetchFromObject = function (obj, prop) {
     /**
      *
      */
-    if(typeof obj === 'undefined') {
-        return false;
+    if (typeof obj === 'undefined') {
+        return false
     }
     /**
      *
      */
-    var _index = prop.indexOf('.')
-    if(_index > -1) {
-        return this.fetchFromObject(obj[prop.substring(0, _index)], prop.substr(_index + 1));
+    const index = prop.indexOf('.')
+    if (index > -1) {
+        return this.fetchFromObject(obj[prop.substring(0, index)], prop.substr(index + 1))
     }
-    return obj[prop];
+    return obj[prop]
 }
 
 /**
@@ -132,7 +133,7 @@ vueLocalez.prototype.fetchFromObject = function(obj, prop) {
  * @param  {object}     options
  * @return {string}
  */
-vueLocalez.prototype.formatNumber = function(number, options) {
+vueLocalez.prototype.formatNumber = function (number, options) {
     return new Intl.NumberFormat(this.activevueLocalez, options || this.fNumbOpt).format(number)
 }
 
@@ -142,15 +143,15 @@ vueLocalez.prototype.formatNumber = function(number, options) {
  * @param  {object} Vue
  * @param  {object} options
  */
-vueLocalez.install = function(Vue, options){
+vueLocalez.install = function (Vue, options) {
     /**
      *
      */
-    var obj = options || {}
+    const obj = options || {}
     /**
      *
      */
-    if(typeof obj != 'object'){
+    if (typeof obj !== 'object') {
         console.error('[vue-lang] the options should be an object type.')
         return false
     }
@@ -159,19 +160,20 @@ vueLocalez.install = function(Vue, options){
      * @type {function}
      */
     Object.defineProperty(Vue.prototype, '$locale', {
-        get () { return this.$root._locale }
+        get() { return this.$root.vlocale }
     })
     /**
      *
      * @type {function}
      */
     Vue.mixin({
-        beforeCreate () {
-            Vue.util.defineReactive(this, '_locale', new vueLocalez(
+        beforeCreate() {
+            Vue.util.defineReactive(this, 'vlocale', new vueLocalez(
                 options
             ))
         }
     })
+    return true
 }
 
 module.exports = vueLocalez
