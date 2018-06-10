@@ -152,8 +152,7 @@ vueLocalez.install = function (Vue, options) {
      *
      */
     if (typeof obj !== 'object') {
-        console.error('[vue-lang] the options should be an object type.')
-        return false
+        throw '[vue-lang] the options should be an object type.'
     }
     /**
      *
